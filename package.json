@@ -1,0 +1,22 @@
+{
+  "name": "KD-tree CityMap",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "KD-tree CityMap (TS) for ma_base.kdtree.bin + ma_base.textindex.bin.",
+  "packageManager": "pnpm@11.15.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc -p viewer/tsconfig.json",
+    "clean": "rm -rf dist viewer/js"
+  },
+  "devDependencies": {
+    "typescript": "~7.0.2",
+    "vite": "^8.1.5"
+  },
+  "dependencies": {
+    "leaflet": "^1.9.4"
+  }
+}

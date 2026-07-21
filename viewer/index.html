@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>KD-tree CityMap —</title>
+    <!-- Apply persisted theme before first paint to avoid a flash. Default: light. -->
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem("cc-theme");
+          if (t === "dark")
+            document.documentElement.setAttribute("data-theme", "dark");
+        } catch (e) {}
+      })();
+    </script>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <header>
+      <div class="header-main">
+        <h1>KD-tree CityMap <small>viewer</small></h1>
+        <p id="status" class="status">Initialisation…</p>
+      </div>
+      <button
+        id="theme-toggle"
+        class="theme-toggle"
+        type="button"
+        aria-label="Basculer le thème"
+      ></button>
+    </header>
+
+    <nav class="tabs">
+      <button class="tab active" type="button" data-tab="search">
+        Recherche
+      </button>
+      <button class="tab" type="button" data-tab="map">Carte</button>
+    </nav>
+
+    <main>
+      <!-- Onglet Recherche : index texte + détail. -->
+      <section class="tabview active" id="tab-search">
+        <div class="search-layout">
+          <section class="panel list-panel">
+            <div class="search-row">
+              <input
+                id="search"
+                type="search"
+                autocomplete="off"
+                placeholder="Recherche par ville (ex: paris, मुंबई, 上海) — tri par population…"
+                disabled
+              />
+            </div>
+
+            <ul id="stats" class="stats"></ul>
+
+            <div class="browse-row">
+              <button id="browse-prev" type="button">‹</button>
+              <span id="browse-info" class="browse-info"></span>
+              <button id="browse-next" type="button">›</button>
+            </div>
+
+            <ul id="results" class="results"></ul>
+          </section>
+
+          <section class="panel detail-panel">
+            <div id="detail"></div>
+          </section>
+        </div>
+      </section>
+
+      <!-- Onglet Carte : ma_base.kdtree.bin (cache IndexedDB) + k-NN au clic. -->
+      <section class="tabview" id="tab-map">
+        <div class="map-layout">
+          <section class="panel map-panel">
+            <div id="map"></div>
+          </section>
+          <aside class="panel map-side">
+            <div class="map-search">
+              <input
+                id="map-search"
+                type="search"
+                autocomplete="off"
+                placeholder="Rechercher une ville (nom, vernaculaire, ascii)…"
+              />
+              <ul id="map-suggest" class="suggest" hidden></ul>
+            </div>
+            <div class="map-controls">
+              <label for="knn-k">k voisins</label>
+              <input id="knn-k" type="number" min="1" max="512" value="128" />
+            </div>
+            <p id="map-status" class="status">
+              Onglet Carte : cliquez pour charger.
+            </p>
+            <div id="map-info"></div>
+          </aside>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <span>Gildas Le Drogoff — </span>
+    </footer>
+
+    <script type="module" src="/src/app.ts"></script>
+  </body>
+</html>
